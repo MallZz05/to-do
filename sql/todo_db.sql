@@ -1,0 +1,17 @@
+CREATE DATABASE IF NOT EXISTS todo_db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE todo_db;
+CREATE TABLE lists (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE tasks (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  list_id INT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  status ENUM('pending','done') DEFAULT 'pending',
+  priority ENUM('High','Normal','Low') DEFAULT 'Normal',
+  due_date DATE DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (list_id) REFERENCES lists(id) ON DELETE CASCADE
+);
